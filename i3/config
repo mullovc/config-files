@@ -121,7 +121,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -158,6 +158,51 @@ bar {
 }
 
 # New insertions
+
+# copied from Arch Linux Wiki
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+		bindsym l exec --no-startup-id i3lock, mode "default"
+		bindsym e exec --no-startup-id i3-msg exit, mode "default"
+		bindsym s exec --no-startup-id systemctl suspend, mode "default"
+		bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+		bindsym r exec --no-startup-id systemctl reboot, mode "default"
+		bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+
+		# back to normal: Enter or Escape
+		bindsym Return mode "default"
+		bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+s mode "$mode_system"
+
 new_window 1pixel
 workspace_auto_back_and_forth yes
-bindsym $mod+shift+Return exec i3-sensible-terminal -e ranger
+# doesn't work in current version
+#focus_wrapping no
+
+bindsym XF86MonBrightnessUp   exec xbacklight + 5
+bindsym XF86MonBrightnessDown exec xbacklight - 5
+bindsym XF86AudioRaiseVolume  exec amixer -D pulse sset Master 5%+
+bindsym XF86AudioLowerVolume  exec amixer -D pulse sset Master 5%-
+bindsym XF86AudioMute         exec amixer -D pulse sset Master toggle
+
+bindsym $mod+Shift+Return exec i3-sensible-terminal -e ranger
+bindsym $mod+Shift+m exec toggle-hdmi.sh
+#bindsym $mod+Shift+x exec "i3-nagbar -t warning -m 'You pressed the shutdown shortcut. Do you really want to shutdown?' -b 'Yes, shutdown' 'shutdown now'"
+#bindsym $mod+Shift+b exec "i3-nagbar -t warning -m 'You pressed the reboot shortcut. Do you really want to reboot?' -b 'Yes, reboot' 'reboot'"
+#bindsym $mod+Shift+s exec systemctl suspend
+#bindsym $mod+Shift+d exec i3lock
+bindsym $mod+Shift+f exec firefox -private
+
+bindsym $mod+Shift+Ctrl+h exec "i3-msg move workspace to output left  && i3-msg focus output left"
+bindsym $mod+Shift+Ctrl+j exec "i3-msg move workspace to output down  && i3-msg focus output down"
+bindsym $mod+Shift+Ctrl+k exec "i3-msg move workspace to output up    && i3-msg focus output up"
+bindsym $mod+Shift+Ctrl+l exec "i3-msg move workspace to output right && i3-msg focus output right"
+
+exec --no-startup-id setxkbmap -layout "us,de"; setxkbmap -option "grp:alt_shift_toggle"
+
+exec --no-startup-id detect-hdmi.sh
+
+exec --no-startup-id nm-applet
+#exec --no-startup-id redshift -l 49:8.4
