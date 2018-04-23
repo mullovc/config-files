@@ -175,7 +175,7 @@ mode "$mode_system" {
 
 bindsym $mod+Shift+s mode "$mode_system"
 
-set $mode_application Application (v) vim, (f) firefox, (c) chromium, (t) tagainijisho, (q) qtcreator, (e) thunderbird, (d) dmenu
+set $mode_application Application (v) vim, (f) firefox, (c) chromium, (t) tagainijisho, (a) anki, (q) qtcreator, (e) thunderbird, (d) dmenu
 mode "$mode_application" {
 		bindsym v exec --no-startup-id i3-sensible-terminal -e vim, mode "default"
 		bindsym f exec --no-startup-id firefox, mode "default"
@@ -197,6 +197,10 @@ new_window 1pixel
 workspace_auto_back_and_forth yes
 # doesn't work in current version
 #focus_wrapping no
+
+bindsym --release $mod+Print            exec --no-startup-id scrot -s 'Screenshot%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/', mode "default"
+bindsym           $mod+Shift+Print      exec --no-startup-id scrot -u 'Screenshot%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/', mode "default"
+bindsym           $mod+Shift+Ctrl+Print exec --no-startup-id scrot    'Screenshot%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/', mode "default"
 
 bindsym XF86MonBrightnessUp   exec xbacklight + 5
 bindsym XF86MonBrightnessDown exec xbacklight - 5
