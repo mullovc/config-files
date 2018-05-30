@@ -175,15 +175,15 @@ mode "$mode_system" {
 
 bindsym $mod+Shift+s mode "$mode_system"
 
-set $mode_application Application (v) vim, (f) firefox, (c) chromium, (t) tagainijisho, (a) anki, (q) qtcreator, (e) thunderbird, (d) dmenu
+set $mode_application Application (v) vim, (f) firefox, (c) chromium, (j) tagainijisho, (a) anki, (q) qtcreator, (t) thunderbird, (d) dmenu
 mode "$mode_application" {
 		bindsym v exec --no-startup-id i3-sensible-terminal -e vim, mode "default"
 		bindsym f exec --no-startup-id firefox, mode "default"
 		bindsym c exec --no-startup-id chromium-browser, mode "default"
-		bindsym t exec --no-startup-id tagainijisho, mode "default"
+		bindsym j exec --no-startup-id tagainijisho, mode "default"
 		bindsym a exec --no-startup-id anki, mode "default"
 		bindsym q exec --no-startup-id qtcreator, mode "default"
-		bindsym e exec --no-startup-id thunderbird, mode "default"
+		bindsym t exec --no-startup-id thunderbird, mode "default"
 		bindsym d exec --no-startup-id i3-dmenu-desktop, mode "default"
 
 		# back to normal: Enter or Escape
