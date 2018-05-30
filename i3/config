@@ -213,6 +213,11 @@ bindsym $mod+Shift+Return exec i3-sensible-terminal -e ranger
 bindsym $mod+Shift+m exec toggle-hdmi.sh
 bindsym $mod+Shift+f exec firefox -private
 
+#navigate workspaces next / previous
+bindsym $mod+Ctrl+Right workspace next
+bindsym $mod+Ctrl+Left workspace prev
+bindsym $mod+Tab workspace back_and_forth
+
 bindsym $mod+Shift+Ctrl+h exec "i3-msg move workspace to output left  && i3-msg focus output left"
 bindsym $mod+Shift+Ctrl+j exec "i3-msg move workspace to output down  && i3-msg focus output down"
 bindsym $mod+Shift+Ctrl+k exec "i3-msg move workspace to output up    && i3-msg focus output up"
