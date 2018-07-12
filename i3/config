@@ -195,7 +195,10 @@ mode "$mode_application" {
 
 bindsym $mod+Shift+d mode "$mode_application"
 
+# set border properties
 new_window 1pixel
+hide_edge_borders both
+
 workspace_auto_back_and_forth yes
 # doesn't work in current version
 #focus_wrapping no
