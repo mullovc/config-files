@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Ranger File Manager
+Comment=Access and organize files
+Keywords=folder;manager;explore;disk;filesystem;
+Exec=i3-sensible-terminal -e /usr/bin/ranger
+Terminal=true
+Type=Application
+StartupNotify=true
+Categories=ConsoleOnly;System;FileTools;FileManager
+MimeType=inode/directory;
