@@ -1,0 +1,12 @@
+set editing-mode vi
+set completion-ignore-case on
+
+# only single tab to show all possible completions
+set show-all-if-unmodified on
+
+# single to perform partial completion and show all possible completions if it
+# is still ambiguous
+# set show-all-if-ambiguous on
+
+# Color completion files by types
+set colored-stats On
