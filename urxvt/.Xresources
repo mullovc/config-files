@@ -1,12 +1,16 @@
 urxvt.background	    : black
 urxvt.foreground	    : white
-urxvt.font		        : xft:DejaVu Sans Mono:size=11:antialias=true
-urxvt.boldfont		    : xft:DejaVu Sans Mono:bold:size=11:antialias=true
+urxvt.font		        : xft:DejaVu Sans Mono:size=12:antialias=true
+urxvt.boldfont		    : xft:DejaVu Sans Mono:bold:size=12:antialias=true
 urxvt.scrollBar		    : false
 urxvt.scrollTtyOutput   : false
 urxvt.scrollWithBuffer  : true
-urxvt.scrollTtyKeypross : true
+urxvt.scrollTtyKeypress : true
 urxvt.secondaryScreen   : 1
 urxvt.secondaryScroll   : 0
-urxvt.perl-ext:
-urxvt.perl-ext-common:
+urxvt.perl-ext          :
+urxvt.perl-ext-common   :
+urxvt.letterSpace       : -1
+
+urxvt.color4 : #3399ff
+urxvt.color12 : #3388ff
