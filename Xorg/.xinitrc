@@ -1,6 +1,8 @@
-export PATH=$HOME/bin:$PATH
+export LIBVA_DRIVER_NAME=iHD
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
 
 xrdb -load ~/.Xresources
-urxvtd -q -o -f
 
 exec /usr/bin/i3
