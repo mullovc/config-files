@@ -1,0 +1,285 @@
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+# Your preferred terminal emulator
+set $term urxvtc
+# Your preferred application launcher
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+set $menu dmenu_path | dmenu | xargs swaymsg exec --
+
+### Output configuration
+# set background color to black
+output * bg #000000 solid_color
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+
+### Idle configuration
+#
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * dpms off"' \
+#               resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+### Input configuration
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+input "2:14:ETPS/2_Elantech_Touchpad" {
+    tap enabled
+}
+
+### Key bindings
+#
+# Basics:
+#
+    # Start a terminal
+    bindsym $mod+Return exec $term
+
+    # Kill focused window
+    bindsym $mod+Shift+q kill
+
+    # Start your launcher
+    bindsym $mod+d exec $menu
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+#
+# Moving around:
+#
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+#
+# Workspaces:
+#
+    # Switch to workspace
+    bindsym $mod+1 workspace 1
+    bindsym $mod+2 workspace 2
+    bindsym $mod+3 workspace 3
+    bindsym $mod+4 workspace 4
+    bindsym $mod+5 workspace 5
+    bindsym $mod+6 workspace 6
+    bindsym $mod+7 workspace 7
+    bindsym $mod+8 workspace 8
+    bindsym $mod+9 workspace 9
+    bindsym $mod+0 workspace 10
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace 1
+    bindsym $mod+Shift+2 move container to workspace 2
+    bindsym $mod+Shift+3 move container to workspace 3
+    bindsym $mod+Shift+4 move container to workspace 4
+    bindsym $mod+Shift+5 move container to workspace 5
+    bindsym $mod+Shift+6 move container to workspace 6
+    bindsym $mod+Shift+7 move container to workspace 7
+    bindsym $mod+Shift+8 move container to workspace 8
+    bindsym $mod+Shift+9 move container to workspace 9
+    bindsym $mod+Shift+0 move container to workspace 10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    # font pango:DejaVu Sans Mono, pango:FontAwesome5Free 9
+
+    # disable clicking on workspace buttons
+    bindsym button1 nop
+    status_command i3status
+    tray_output primary
+    position top
+
+    colors {
+        statusline #ffffff
+        #background #323232
+        background #000000
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+}
+
+include /etc/sway/config.d/*
+
+
+
+## New insertions
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id swaylock -c 000000, mode "default"
+    bindsym e exec --no-startup-id swaymsg exit, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+s mode "$mode_system"
+
+
+bindsym $mod+Shift+d exec --no-startup-id i3-dmenu-desktop, mode "default"
+
+set $mode_displayctl Display (m) toggle, (r) rotate HDMI
+mode "$mode_displayctl" {
+    set $hdmi "HDMI-1"
+
+    bindsym m exec --no-startup-id toggle-hdmi.sh, mode "default"
+    bindsym $mod+Shift+m exec --no-startup-id toggle-hdmi.sh, mode "default"
+    bindsym r exec --no-startup-id xrandr --output $hdmi --rotate left, mode "default"
+    bindsym Shift+r exec --no-startup-id xrandr --output $hdmi --rotate right, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+m mode "$mode_displayctl"
+
+# set border properties
+default_border pixel
+hide_edge_borders both
+
+workspace_auto_back_and_forth yes
+focus_wrapping no
+
+bindsym --release $mod+Print            exec --no-startup-id scrot -s 'Screenshot%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/', mode "default"
+bindsym           $mod+Shift+Print      exec --no-startup-id scrot -u 'Screenshot%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/', mode "default"
+bindsym           $mod+Shift+Ctrl+Print exec --no-startup-id scrot    'Screenshot%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/', mode "default"
+
+bindsym XF86AudioRaiseVolume  exec amixer -D default sset Master 1%+
+bindsym XF86AudioLowerVolume  exec amixer -D default sset Master 1%-
+bindsym XF86AudioMute         exec amixer -D default sset Master toggle
+bindsym XF86Calculator        exec calculator
+
+bindsym $mod+Shift+Return exec --no-startup-id $term -e ranger
+bindsym $mod+Shift+f      exec --no-startup-id qutebrowser -T "about:blank"
+bindsym $mod+Shift+v      exec --no-startup-id $term -e nvim
+
+#navigate workspaces next / previous
+bindsym $mod+Ctrl+Right workspace next
+bindsym $mod+Ctrl+Left  workspace prev
+bindsym $mod+Tab workspace back_and_forth
+
+bindsym $mod+Shift+Ctrl+h exec "swaymsg move workspace to output left  && swaymsg focus output left"
+bindsym $mod+Shift+Ctrl+j exec "swaymsg move workspace to output down  && swaymsg focus output down"
+bindsym $mod+Shift+Ctrl+k exec "swaymsg move workspace to output up    && swaymsg focus output up"
+bindsym $mod+Shift+Ctrl+l exec "swaymsg move workspace to output right && swaymsg focus output right"
+
+bindsym $mod+o exec rotate.sh right
+
+#exec --no-startup-id setxkbmap -layout "us,de"; setxkbmap -option "grp:alt_shift_toggle"
+
+exec --no-startup-id xrdb -load ~/.Xresources
+exec --no-startup-id urxvtd -q -o -f
+exec --no-startup-id fcitx -d
+exec --no-startup-id redshift -O 4700
+exec --no-startup-id detect-hdmi.sh
