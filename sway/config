@@ -69,7 +69,7 @@ input "2:14:ETPS/2_Elantech_Touchpad" {
     bindsym $mod+Shift+c reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+    #bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 #
 # Moving around:
 #
@@ -230,12 +230,19 @@ bindsym $mod+Shift+d exec --no-startup-id i3-dmenu-desktop, mode "default"
 
 set $mode_displayctl Display (m) toggle, (r) rotate HDMI
 mode "$mode_displayctl" {
-    set $hdmi "HDMI-1"
+    set $hdmi "HDMI-A-1"
 
-    bindsym m exec --no-startup-id toggle-hdmi.sh, mode "default"
-    bindsym $mod+Shift+m exec --no-startup-id toggle-hdmi.sh, mode "default"
-    bindsym r exec --no-startup-id xrandr --output $hdmi --rotate left, mode "default"
-    bindsym Shift+r exec --no-startup-id xrandr --output $hdmi --rotate right, mode "default"
+    bindsym m            output $hdmi toggle, mode "default"
+    bindsym $mod+Shift+m output $hdmi toggle, mode "default"
+
+    bindsym r       output $hdmi transform 90 anticlockwise, mode "default"
+    bindsym Shift+r output $hdmi transform 90     clockwise, mode "default"
+
+    # reposition HDMI
+    bindsym Left  output $hdmi pos 1920    0, output eDP-1 pos    0    0, mode "default"
+    bindsym Right output $hdmi pos    0    0, output eDP-1 pos 1920    0, mode "default"
+    bindsym Up    output $hdmi pos    0    0, output eDP-1 pos    0 1080, mode "default"
+    bindsym Down  output $hdmi pos    0 1080, output eDP-1 pos    0    0, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -248,8 +255,21 @@ bindsym $mod+Shift+m mode "$mode_displayctl"
 default_border pixel
 hide_edge_borders both
 
+# workspace mappings
 workspace_auto_back_and_forth yes
 focus_wrapping no
+
+bindsym $mod+Ctrl+Right workspace next
+bindsym $mod+Ctrl+Left  workspace prev
+bindsym $mod+Tab workspace back_and_forth
+
+bindsym $mod+Shift+Ctrl+h move workspace to output left
+bindsym $mod+Shift+Ctrl+j move workspace to output down
+bindsym $mod+Shift+Ctrl+k move workspace to output up
+bindsym $mod+Shift+Ctrl+l move workspace to output right
+
+# mappings for external applications
+bindsym $mod+o exec rotate.sh right
 
 bindsym --release $mod+Print            exec --no-startup-id scrot -s 'Screenshot%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/', mode "default"
 bindsym           $mod+Shift+Print      exec --no-startup-id scrot -u 'Screenshot%Y-%m-%d_%H:%M:%S.png' -e 'mv $f ~/Pictures/', mode "default"
@@ -264,22 +284,9 @@ bindsym $mod+Shift+Return exec --no-startup-id $term -e ranger
 bindsym $mod+Shift+f      exec --no-startup-id qutebrowser -T "about:blank"
 bindsym $mod+Shift+v      exec --no-startup-id $term -e nvim
 
-#navigate workspaces next / previous
-bindsym $mod+Ctrl+Right workspace next
-bindsym $mod+Ctrl+Left  workspace prev
-bindsym $mod+Tab workspace back_and_forth
-
-bindsym $mod+Shift+Ctrl+h exec "swaymsg move workspace to output left  && swaymsg focus output left"
-bindsym $mod+Shift+Ctrl+j exec "swaymsg move workspace to output down  && swaymsg focus output down"
-bindsym $mod+Shift+Ctrl+k exec "swaymsg move workspace to output up    && swaymsg focus output up"
-bindsym $mod+Shift+Ctrl+l exec "swaymsg move workspace to output right && swaymsg focus output right"
-
-bindsym $mod+o exec rotate.sh right
-
 #exec --no-startup-id setxkbmap -layout "us,de"; setxkbmap -option "grp:alt_shift_toggle"
 
 exec --no-startup-id xrdb -load ~/.Xresources
 exec --no-startup-id urxvtd -q -o -f
 exec --no-startup-id fcitx -d
 exec --no-startup-id redshift -O 4700
-exec --no-startup-id detect-hdmi.sh
