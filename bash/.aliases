@@ -1,0 +1,20 @@
+alias tempdir="cd \$(mktemp -d)"
+
+# fzf aliases
+alias fzf="fzf -e"
+alias pacbrowseQ="pacman -Qq  | fzf --preview 'pacman -Qil {}' --bind 'enter:execute(pacman -Qil {} | less)'"
+alias pacbrowseS="pacman -Slq | fzf --preview 'pacman -Sii {}' --bind 'enter:execute(pacman -Sii {} | less)'"
+alias pacbrowseSg="pacman -Sg | fzf --preview 'pacman -Sg {}'"
+alias pacbrowseSs="pacman -Ss | sed 'N; s/\n//' | fzf"
+alias pacbrowseQs="pacman -Qs | sed 'N; s/\n//' | fzf"
+alias aurbrowse="curl https://aur.archlinux.org/packages.gz | gunzip | fzf"
+alias manbrowse="man -k . | fzf --preview 'man {1}'"
+alias gitlogbrowse="git log --oneline | fzf --ansi --preview 'git show --color=always {1}' --bind 'enter:execute(git show --color=always {1} | less)'"
+
+# edit here (in this directory)
+alias eh="nvim \"\$(fzf)\""
+# edit old (previously edited files)
+alias eo="nvim \"\$(nvim -Es -u NONE -c '0put =v:oldfiles' -c '%print' | fzf)\""
+
+
+alias mistune="python -c 'import mistune, sys; print(mistune.markdown(sys.stdin.read()))'"
