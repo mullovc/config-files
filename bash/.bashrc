@@ -36,8 +36,17 @@ shopt -s globstar
 
 # set Powerline-like prompt
 # for ANSI escape sequences check https://en.wikipedia.org/wiki/ANSI_escape_code
-PS1='\[\033[0;38;5;231;48;5;31;1m\] \W \[\033[0;38;5;31;49m\] \[\033[0m\]'
-[ -n "$RANGER_LEVEL" ] && PS1='\[\033[0;38;5;231;48;5;1;1m\] \W \[\033[0;38;5;1;49m\] \[\033[0m\]'
+prompt_bg_color="31"
+prompt_fg_color="231"
+#[ -n "$RANGER_LEVEL" ] && prompt_bg_color="1"
+PS1="\[\033[0;48;5;${prompt_bg_color};38;5;${prompt_fg_color};1m\] \W \[\033[0;38;5;${prompt_bg_color};49m\] \[\033[0m\]"
+if [ -n "$RANGER_LEVEL" ]
+then
+    prompt_old_bg_color="$prompt_bg_color"
+    prompt_bg_color="127"
+    prompt_fg_color="17"
+    PS1="\[\033[0;48;5;${prompt_bg_color};38;5;${prompt_fg_color};1m\]  \[\033[0;38;5;${prompt_bg_color};48;5;${prompt_old_bg_color}m\]${PS1}"
+fi
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
