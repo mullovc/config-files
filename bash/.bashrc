@@ -76,3 +76,30 @@ source /usr/share/fzf/key-bindings.bash
 
 export VISUAL=/usr/bin/nvim
 export LESS=-R
+
+
+# flv - fuzzy open with vim from anywhere
+# ex: vf word1 word2 ... (even part of a file name)
+flv() {
+  local files
+
+  files=("$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1 -m)")
+
+  if [[ -n $files ]]
+  then
+     vim -- $files
+     print -l $files[1]
+  fi
+}
+
+# fkill - kill process
+fkill() {
+  local pid
+  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+
+  if [ "x$pid" != "x" ]
+  then
+    # send SIGTERM signal as default signal
+    echo $pid | xargs kill -${1:-15}
+  fi
+}
