@@ -34,9 +34,10 @@ shopt -s globstar
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set a fancy prompt
-PS1='\[\033[01;34m\]\W\[\033[00m\]\$ '
-[ -n "$RANGER_LEVEL" ] && PS1='\[\033[01;35m\]\W\[\033[00m\]\$ '
+# set Powerline-like prompt
+# for ANSI escape sequences check https://en.wikipedia.org/wiki/ANSI_escape_code
+PS1='\[\033[0;38;5;231;48;5;31;1m\] \W \[\033[0;38;5;31;49m\] \[\033[0m\]'
+[ -n "$RANGER_LEVEL" ] && PS1='\[\033[0;38;5;231;48;5;1;1m\] \W \[\033[0;38;5;1;49m\] \[\033[0m\]'
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
